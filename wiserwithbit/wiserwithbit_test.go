@@ -27,8 +27,8 @@ func TestXor(t *testing.T) {
 
 func TestNot(t *testing.T) {
 	result := Not(1)
-	if result != 18446744073709551614 {
-		t.Errorf("Not(1) expected 18446744073709551614, but got %d", result)
+	if result != -2 {
+		t.Errorf("Not(1) expected -2, but got %d", result)
 	}
 }
 
@@ -114,5 +114,19 @@ func TestSquareRoot(t *testing.T) {
 	result := SquareRoot(64)
 	if result != 8 {
 		t.Errorf("SquareRoot(64) expected 8, but got %v", result)
+	}
+}
+
+func TestGCD(t *testing.T) {
+	result := GCD(45, 30)
+	if result != 15 {
+		t.Errorf("GCD(45, 30) expected 15, but got %v", result)
+	}
+}
+
+func TestLCM(t *testing.T) {
+	result := LCM(36, 40)
+	if result != 360 {
+		t.Errorf("GCD(45, 30) expected 360, but got %v", result)
 	}
 }

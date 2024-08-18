@@ -1,27 +1,27 @@
 package wiserwithbit
 
 // performs the bitwise AND operation between two numbers.
-func And(x, y uint) uint {
+func And(x, y int) int {
 	return x & y
 }
 
 // performs the bitwise OR operation between two numbers.
-func Or(x, y uint) uint {
+func Or(x, y int) int {
 	return x | y
 }
 
 // performs the bitwise XOR operation between two numbers.
-func Xor(x, y uint) uint {
+func Xor(x, y int) int {
 	return x ^ y
 }
 
 // performs the bitwise NOT operation on a number.
-func Not(x uint) uint {
+func Not(x int) int {
 	return ^x
 }
 
 // performs addition between two numbers
-func Add(x uint, y uint) uint {
+func Add(x int, y int) int {
 	for x != 0 {
 		c := And(x, y)
 		y = Xor(y, x)
@@ -30,11 +30,8 @@ func Add(x uint, y uint) uint {
 	return y
 }
 
-// performs substraction between two numbers (x should be > y)
-func Substract(x uint, y uint) uint {
-	if x < y {
-		panic("x cannot be less than y")
-	}
+// performs substraction between two numbers
+func Substract(x int, y int) int {
 	for y != 0 {
 		c := And(Not(x), y)
 		x = Xor(x, y)
@@ -45,22 +42,22 @@ func Substract(x uint, y uint) uint {
 }
 
 // get right most bit
-func GetRightMostBit(x uint) uint {
+func GetRightMostBit(x int) int {
 	return And(x, -x)
 }
 
 // clear right most bit
-func ClearRightMostBit(x uint) uint {
+func ClearRightMostBit(x int) int {
 	return And(x, x-1)
 }
 
 // check if number is the power of 2
-func IsPowerOfTwo(x uint) bool {
+func IsPowerOfTwo(x int) bool {
 	return And(x, x-1) == 0
 }
 
 // swap two values
-func Swap(x uint, y uint) (uint, uint) {
+func Swap(x int, y int) (int, int) {
 	x ^= y
 	y ^= x
 	x ^= y
@@ -68,18 +65,18 @@ func Swap(x uint, y uint) (uint, uint) {
 }
 
 // check if number is odd
-func IsOdd(x uint) bool {
+func IsOdd(x int) bool {
 	return And(x, 1) == 1
 }
 
 // check if number is even
-func IsEven(x uint) bool {
+func IsEven(x int) bool {
 	return And(x, 1) == 0
 }
 
 // get the log of a number
-func Log(x uint) uint {
-	y := uint(0)
+func Log(x int) int {
+	y := 0
 	for x > 1 {
 		y += 1
 		x >>= 1
@@ -88,10 +85,10 @@ func Log(x uint) uint {
 }
 
 // get square root of a number
-func SquareRoot(x uint) uint {
+func SquareRoot(x int) int {
 	msb := Log(x) / Log(2)
-	c := uint(1 << msb)
-	y := uint(0)
+	c := 1 << msb
+	y := 0
 	for c != 0 {
 		if ((y + c) * (y + c)) <= x {
 			y += c
@@ -99,4 +96,19 @@ func SquareRoot(x uint) uint {
 		c >>= 1
 	}
 	return y
+}
+
+// calculate GCD (greatest common divisor)
+func GCD(x int, y int) int {
+	for y > 0 {
+		c := y
+		y = x % y
+		x = c
+	}
+	return x
+}
+
+// calculate LCM (least common multiple)
+func LCM(x int, y int) int {
+	return (x * y) / GCD(x, y)
 }
