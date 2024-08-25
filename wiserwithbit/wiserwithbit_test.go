@@ -110,6 +110,13 @@ func TestLog(t *testing.T) {
 	}
 }
 
+func TestMCB(t *testing.T) {
+	result := MSB(9)
+	if result != 8 {
+		t.Errorf("MSB(8) expected 8, but got %v", result)
+	}
+}
+
 func TestSquareRoot(t *testing.T) {
 	result := SquareRoot(64)
 	if result != 8 {

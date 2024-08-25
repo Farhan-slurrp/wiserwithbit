@@ -23,9 +23,9 @@ func Not(x int) int {
 // performs addition between two numbers
 func Add(x int, y int) int {
 	for x != 0 {
-		c := And(x, y)
+		z := And(x, y)
 		y = Xor(y, x)
-		x = c << 1
+		x = z << 1
 	}
 	return y
 }
@@ -33,9 +33,9 @@ func Add(x int, y int) int {
 // performs substraction between two numbers
 func Substract(x int, y int) int {
 	for y != 0 {
-		c := And(Not(x), y)
+		z := And(Not(x), y)
 		x = Xor(x, y)
-		y = c << 1
+		y = z << 1
 	}
 
 	return x
@@ -58,9 +58,9 @@ func IsPowerOfTwo(x int) bool {
 
 // swap two values
 func Swap(x int, y int) (int, int) {
-	x ^= y
-	y ^= x
-	x ^= y
+	x = Xor(x, y)
+	y = Xor(x, y)
+	x = Xor(x, y)
 	return x, y
 }
 
@@ -84,16 +84,21 @@ func Log(x int) int {
 	return y
 }
 
+// Get the index of most significant bit (MSB)
+func MSB(x int) int {
+	index := Log(x) / Log(2)
+	return 1 << index
+}
+
 // get square root of a number
 func SquareRoot(x int) int {
-	msb := Log(x) / Log(2)
-	c := 1 << msb
+	z := MSB(x)
 	y := 0
-	for c != 0 {
-		if ((y + c) * (y + c)) <= x {
-			y += c
+	for z != 0 {
+		if ((y + z) * (y + z)) <= x {
+			y += z
 		}
-		c >>= 1
+		z >>= 1
 	}
 	return y
 }
@@ -101,9 +106,9 @@ func SquareRoot(x int) int {
 // calculate GCD (greatest common divisor)
 func GCD(x int, y int) int {
 	for y > 0 {
-		c := y
+		z := y
 		y = x % y
-		x = c
+		x = z
 	}
 	return x
 }
